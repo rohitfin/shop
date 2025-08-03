@@ -1,0 +1,72 @@
+<!-- Begin: Product list -->
+<div class="card h-100">
+    <div class="position-absolute" style="top: 0.5rem; right: 0.5rem"> <i class="bi bi-suit-heart-fill fs-4"> </i></div>
+    <div class="badge bg-success text-white position-absolute" style="top: 0.5rem; left: 0.5rem"
+        *ngIf="product.discountPrice">Sale</div>
+    <img class="card-img-top" [src]="product.imageURL" [alt]="product.brand" (error)="onImageError($event)"
+        (click)="openProductDetail(content, product)">
+    <div class="card-body p-4">
+        <div class="text-center">
+            <div class="d-flex justify-content-between">
+                <p>{{product.gender}}</p>
+                <!-- <div class="d-flex justify-content-center small text-warning mb-2">
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                    <div class="bi-star-fill"></div>
+                </div> -->
+                <p *ngIf="product.is_in_inventory"> Left: {{product.items_left}} </p>
+                <p *ngIf="!product.is_in_inventory" class="badge bg-danger"> Out of Stock </p>
+            </div>
+            <h5 class="fw-bolder">{{product.name}}</h5>
+
+            <span class="fw-bolder">
+                @if(product.discountPrice){
+                <span class="text-muted text-decoration-line-through">
+                    ₹{{ product.price}}
+                </span>
+                ₹{{ product.discountPrice}}
+                }@else if(!product.discountPrice){
+                ₹{{ product.price}}
+                }
+            </span>
+        </div>
+    </div>
+    <button class="btn btn-primary mx-auto mb-4" (click)="addToCartProduct(product)">
+        @if(product.isCart){
+        Remove from Cart
+        }@else{
+        Add to Cart
+        }
+    </button>
+
+    <!-- <div class="d-flex mb-4">
+        <div class="input-group w-50">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default btn-number" data-type="minus" data-field="quant[1]">
+                    <i class="bi bi-dash-square"></i>
+                </button>
+            </span>
+            <input type="text" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                    <i class="bi bi-plus-circle"></i>
+                </button>
+            </span>
+        </div>
+    </div> -->
+</div>
+<!-- End: Product list -->
+
+<!-- Begin: Product detail Modal -->
+<ng-template #content let-offcanvas>
+    <div class="offcanvas-header">
+        <h4 class="offcanvas-title">Product Detail</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+    </div>
+    <div class="offcanvas-body">
+        <app-product-detail [singleProduct]="selectProduct"></app-product-detail>
+    </div>
+</ng-template>
+<!-- End: Product detail Modal -->

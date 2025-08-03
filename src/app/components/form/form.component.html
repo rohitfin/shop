@@ -1,0 +1,262 @@
+<div class="row justify-content-center">
+  <div class="col-xl-10 col-md-12">
+    <form class="form" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-12 text-center">
+          <h5>Register Form</h5>
+        </div>
+        <div class="mb-2 col-6 col-md-4 col-lg-3">
+          <label for="name">User Name<sup>*</sup></label>
+          <input
+            formControlName="userName"
+            type="text"
+            class="form-control"
+            [ngClass]="{
+              'is-invalid': (isSubmitted && myFormControl['userName'].invalid) || myFormControl['userName'].errors?.['noSpecialCharsValidators']
+            }"
+          />
+          <small class="text-danger" *ngIf="myFormControl['userName'].errors?.['noSpecialCharsValidators']">
+            User Name should not contain special characters
+          </small>
+          <small class="text-danger" *ngIf="myFormControl['userName'].errors?.['forbiddenName']">
+            admin word is forbidden
+          </small>
+        </div>
+        <div class="mb-2 col-6 col-md-4 col-lg-3">
+          <label for="firstName">First Name<sup>*</sup></label>
+          <input
+            formControlName="firstName"
+            type="text"
+            class="form-control"
+            placeholder="First name*"
+            [ngClass]="{
+              'is-invalid': isSubmitted && myFormControl['firstName'].invalid
+            }"
+          />
+        </div>
+        <div class="mb-2 col-6 col-md-4 col-lg-3">
+          <label for="lastName">Last Name</label>
+          <input
+            formControlName="lastName"
+            type="text"
+            class="form-control"
+            placeholder="Last name"
+          />
+        </div>
+        <div class="mb-2 col-6 col-md-4 col-lg-3">
+          <label for="email">Email ID</label>
+          <input
+            formControlName="email"
+            type="email"
+            class="form-control"
+            placeholder="Email*"
+            [ngClass]="{
+              'is-invalid': isSubmitted && myFormControl['email'].invalid
+            }"
+          />
+          <small class="text-danger" *ngIf="myFormControl['email'].errors?.['emailTaken']">
+            This email is already taken.
+          </small>
+        </div>
+        <div class="mb-2 col-6 col-md-4 col-lg-3">
+          <label for="phone">Mobile Number<sup>*</sup></label>
+          <input
+            formControlName="phone"
+            type="text"
+            class="form-control"
+            placeholder="Phone Number*"
+            [ngClass]="{
+              'is-invalid': isSubmitted && myFormControl['phone'].invalid
+            }"
+          />
+        </div>
+        <div class="mb-2 col-6 col-md-4 col-lg-3">
+          <label for="dob">Date of Birth</label>
+          <input formControlName="date" type="date" class="form-control" />
+        </div>
+        <div class="mb-2 col-6 col-md-4 col-lg-3">
+          <p class="mb-1">Gender</p>
+          <div class="d-flex gap-3">
+            <div class="">
+              <input
+                formControlName="gender"
+                type="radio"
+                id="male"
+                name="gender"
+                value="male"
+                class="me-1"
+              />
+              <label for="male">Male</label>
+            </div>
+            <div class="">
+              <input
+                formControlName="gender"
+                type="radio"
+                id="female"
+                name="gender"
+                value="female"
+                class="me-1"
+              />
+              <label for="female">Female</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-2" formGroupName="addressDetail">
+        <div class="mb-2 col-6">
+          <label for="address" class="form-label">Address 1</label>
+          <textarea
+            formControlName="address"
+            type="text"
+            class="form-control"
+          ></textarea>
+        </div>
+        <div class="mb-2 col-6">
+          <label for="address2" class="form-label">Address 2</label>
+          <textarea
+            formControlName="address2"
+            type="text"
+            class="form-control"
+          ></textarea>
+        </div>
+        <div class="mb-2 col-6 col-md-4 col-lg-3">
+          <label for="state" class="form-label">State</label>
+          <select formControlName="state" class="form-select">
+            <option value="">State</option>
+            <option value="Maharashtra">Maharashtra</option>
+            <option value="UttarPradesh">Uttar Pradesh</option>
+            <option value="Bihar">Bihar</option>
+            <option value="Gujarat">Gujarat</option>
+            <option value="Punjab">Punjab</option>
+          </select>
+        </div>
+        <div class="mb-2 col-6 col-md-4 col-lg-3">
+          <label for="district" class="form-label">District</label>
+          <select formControlName="district" class="form-select">
+            <option value="">District</option>
+            <option value="abc">abc</option>
+            <option value="def">def</option>
+            <option value="ghi">ghi</option>
+          </select>
+        </div>
+        <div class="col-6 col-md-4 col-lg-3">
+          <label for="pinCode" class="form-label">Pin Code</label>
+          <input formControlName="pinCode" type="number" class="form-control" />
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-12">
+          <label for="">Skills</label>
+          <ng-multiselect-dropdown
+            formControlName="skills"
+            [settings]="arrSkillsSetting"
+            [data]="arrSkills"
+          >
+          </ng-multiselect-dropdown>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <p class="mb-1">Experience</p>
+        <div class="position-reative" formArrayName="myExperience">
+          <div
+            class="border p-2 mb-2"
+            *ngFor="let item of experience().controls; let i = index"
+            [formGroupName]="i"
+          >
+            <div class="row">
+              <p class="fs-small mb-1 fw-600">Experience {{ i + 1 }}</p>
+              <div class="mb-2 col-6 col-md-4 col-lg-3 position-relative">
+                <label for="formDate">Company Name<sup>*</sup></label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Company Name"
+                  formControlName="companyName"
+                />
+                <span
+                  class="form-text text-danger"
+                  *ngIf="
+                    isSubmitted &&
+                    experienceControlValidator(i).controls['companyName'].invalid
+                  "
+                  >Please Select experience</span
+                >
+              </div>
+              <div class="mb-2 col-6 col-md-4 col-lg-3 position-relative">
+                <label for="formDate">Experience<sup>*</sup></label>
+                <select class="form-select" formControlName="experience">
+                  <option value="null">Select Experience</option>
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                </select>
+                <span class="form-text text-danger"
+                  *ngIf="
+                    isSubmitted &&
+                    experienceControlValidator(i).controls['experience'].invalid
+                  "
+                  >Please Select experience</span
+                >
+              </div>
+              <div class="mb-2 col-6 col-md-4 col-lg-3 position-relative">
+                <label for="formDate">From Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="formDate"
+                  placeholder="Form Date"
+                />
+              </div>
+              <div class="mb-2 col-6 col-md-4 col-lg-3 position-relative">
+                <label for="formDate">To Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  formControlName="toDate"
+                />
+              </div>
+
+              <div class="col-2" *ngIf="i > 0">
+                <div
+                  class="btn btn-danger btn-sm"
+                  (click)="removeExperience(i)"
+                >
+                  Delete
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-end mt-2">
+          <button
+            type="button"
+            class="btn btn-warning btn-sm"
+            (click)="addExperience()"
+          >
+            Add Experience
+          </button>
+        </div>
+      </div>
+
+      <div class="row mt-2">
+        <div class="col-6">
+          <button
+            type="submit"
+            class="btn text-white {{
+              isSubmitting ? 'bg-success' : 'bg-primary'
+            }}"
+            [disabled]="isSubmitting"
+          >
+            {{ isSubmitting ? "Submitting..." : "Submit" }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h2>Product List</h2>
+        </div>
+        <div class="col-6">
+            <app-product-filter (sendFilter)="getFilterProducts($event)" [allProductCount]="allProductCount" [inStockProductCount]="inStockProductCount" [outOfStockProductCount]="outOfStockProductCount"></app-product-filter>
+        </div>
+        <div class="col-6">
+            <app-product-search (sendSearch)="getSearch($event)"></app-product-search>
+        </div>
+
+        <!-- Begin: Product Loading / Error / No Data --> 
+        <div class="col-12" *ngIf="isLoading() || isError() || isNoData()">
+            <div class="d-flex justify-content-center">
+                @if(isLoading()){
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                }
+                @if(isError()){
+                <div class="alert alert-danger">
+                    <strong>Error!</strong> Something went wrong.
+                </div>
+                }
+                @if(isNoData()){
+                <div class="alert alert-info">
+                    <strong>No Data!</strong> No data found.
+                </div>
+                }
+            </div>
+        </div>
+        <!-- End: Product Loading -->
+
+        <!-- Begin: Product List -->
+        <ng-container *ngFor="let produdct of products()">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <app-product-list [product]="produdct"></app-product-list>
+            </div>
+        </ng-container>
+        <!-- End: Product List -->
+
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div class="d-flex gap-2">
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="stock" id="all" value="All" checked (change)="filterProducts('All')">
+        <label class="form-check-label" for="all">
+            All ({{allProductCount}})
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="stock" id="inStock" value="In Stock" (change)="filterProducts('inStock')">
+        <label class="form-check-label" for="inStock">
+            In Stock ({{inStockProductCount}})
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="stock" id="outOfStock" value="Out of Stock" (change)="filterProducts('outOfStock')">
+        <label class="form-check-label" for="outOfStock">
+            Out of Stock ({{outOfStockProductCount}})
+        </label>
+    </div>
+</div>

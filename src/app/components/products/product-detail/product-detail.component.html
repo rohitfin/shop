@@ -1,0 +1,33 @@
+
+<div class="product-card card">
+    <img src="{{singleProduct.imageURL}}" alt="img" class="img-responsive" [ngStyle]="{'height': '200px', 'object-fit': 'contain'}">
+    <div class="card-body">
+        <div class="d-flex gap-2 justify-content-between">
+            <div>
+                <ng-container *ngIf="singleProduct.discountPrice">
+                    <strong><i class="bi bi-currency-rupee"></i>
+                    {{singleProduct.discountPrice}} 
+                </strong>
+                <small><del><i class="bi bi-currency-rupee"></i>{{singleProduct.price}}</del></small>
+            </ng-container>
+            <ng-container *ngIf="!singleProduct.discountPrice">
+                <strong>
+                    <i class="bi bi-currency-rupee"></i>{{singleProduct.price}}
+                </strong>
+            </ng-container>
+            </div>
+            <p>{{singleProduct.brand}}</p>
+            <p>Left only: {{singleProduct.items_left}}</p>
+        </div>
+        
+        <div class="d-flex gap-2 justify-content-between">
+            <p>Size: {{singleProduct.size}}</p>
+            <p>Color: {{singleProduct.color}}</p>
+        </div>
+        <div class="d-flex gap-2 justify-content-between">
+            <p>Gender: {{singleProduct.gender}}</p>
+            <p>Category: {{singleProduct.category}}</p>
+        </div>
+        <p class="card-text">{{singleProduct.description}}</p>
+      </div>
+</div>

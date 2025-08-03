@@ -1,0 +1,29 @@
+<nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0 px-3" href="#">Shop</a>
+    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <ul class="navbar-nav px-3 d-flex flex-row gap-3">
+      <li class="nav-item text-nowrap">
+        <a class="nav-link" href="#">Sign out</a>
+      </li>
+      <li class="nav-item text-nowrap" (click)="openCart(content, 'shoes')">
+        <button class="btn btn-outline-light" type="button">
+          <i class="bi-cart-fill me-1"></i>
+          Cart
+          <span class="badge bg-light text-dark ms-1 rounded-pill">{{cartCount()}}</span>
+        </button>
+      </li>
+  
+    </ul>
+  </nav>
+  
+  <!-- Begin: Cart Modal -->
+  <ng-template #content let-offcanvas>
+    <div class="offcanvas-header">
+      <h4 class="offcanvas-title">Cart List</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="offcanvas.dismiss('Cross click')"></button>
+    </div>
+    <div class="offcanvas-body">
+      <app-cart-list></app-cart-list>
+    </div>
+  </ng-template>
+  <!-- End: Cart Modal -->
