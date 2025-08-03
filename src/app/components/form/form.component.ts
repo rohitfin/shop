@@ -36,7 +36,7 @@ export class FormComponent implements OnInit {
     unSelectAllText: 'UnSelect All',
     itemsShowLimit: 3,
     allowSearchFilter: true,
-  }; 
+  };
 
   arrSkills = [
     { item_id: 1, item_text: 'HTML' },
